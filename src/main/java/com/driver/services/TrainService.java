@@ -26,7 +26,21 @@ public class TrainService {
         //and route String logic to be taken from the Problem statement.
         //Save the train and return the trainId that is generated from the database.
         //Avoid using the lombok library
-        return null;
+        Train train = new Train();
+        train.setDepartureTime(trainEntryDto.getDepartureTime());
+        train.setNoOfSeats(trainEntryDto.getNoOfSeats());
+
+        List<Station> st = trainEntryDto.getStationRoute();
+        String ans = "";
+        for(Station i:st)
+        {
+
+            ans = ans+i+",";
+        }
+        train.setRoute(ans.substring(0,ans.length()));
+
+       Train train1 =  trainRepository.save(train);
+        return train1.getTrainId();
     }
 
     public Integer calculateAvailableSeats(SeatAvailabilityEntryDto seatAvailabilityEntryDto){
